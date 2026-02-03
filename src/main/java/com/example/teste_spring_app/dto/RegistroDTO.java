@@ -16,5 +16,8 @@ public class RegistroDTO {
 
     @NotBlank(message = "Senha é obrigatória")
     @Size(min = 6, message = "Senha deve ter no mínimo 6 caracteres")
+    @Pattern(
+    regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).+$",
+    message = "Senha deve conter letra maiúscula, minúscula, número e caractere especial")
     private String senha;
 }
