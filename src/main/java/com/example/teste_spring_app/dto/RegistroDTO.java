@@ -2,6 +2,7 @@ package com.example.teste_spring_app.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -20,4 +21,11 @@ public class RegistroDTO {
     regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).+$",
     message = "Senha deve conter letra maiúscula, minúscula, número e caractere especial")
     private String senha;
+
+    @NotBlank(message = "Confirmação de senha é obrigatória")
+    @Size(min = 6, message = "Confirmação de senha deve ter no mínimo 6 caracteres")
+    @Pattern(
+    regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&]).+$",
+    message = "Confirmação de senha deve conter letra maiúscula, minúscula, número e caractere especial")
+    private String confirmaSenha;
 }
