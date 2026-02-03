@@ -34,6 +34,10 @@ public class AuthService {
             throw new RuntimeException("Email já cadastrado");
         }
 
+        if (!dto.getSenha().equals(dto.getConfirmaSenha())) {
+            throw new RuntimeException("Senha e confirmação de senha não coincidem");
+        }
+
         Usuario usuario = new Usuario();
         usuario.setNome(dto.getNome());
         usuario.setEmail(dto.getEmail());
