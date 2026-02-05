@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,15 +19,27 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthService authService;
 
-    @PostMapping("/register")
-    @Operation(summary = "Registrar novo usuário")
-    public ResponseEntity<AuthResponseDTO> registrar(@Valid @RequestBody RegistroDTO dto) {
+    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Registrar novo usuário (JSON)")
+    public ResponseEntity<AuthResponseDTO> registrarJson(@Valid @RequestBody RegistroDTO dto) {
         return ResponseEntity.ok(authService.registrar(dto));
     }
 
-    @PostMapping("/login")
-    @Operation(summary = "Fazer login")
-    public ResponseEntity<AuthResponseDTO> login(@Valid @RequestBody LoginDTO dto) {
+    @PostMapping(value = "/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "Registrar novo usuário (Form Data)")
+    public ResponseEntity<AuthResponseDTO> registrarForm(@Valid @ModelAttribute RegistroDTO dto) {
+        return ResponseEntity.ok(authService.registrar(dto));
+    }
+
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Fazer login (JSON)")
+    public ResponseEntity<AuthResponseDTO> loginJson(@Valid @RequestBody LoginDTO dto) {
+        return ResponseEntity.ok(authService.login(dto));
+    }
+
+    @PostMapping(value = "/login", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "Fazer login (Form Data)")
+    public ResponseEntity<AuthResponseDTO> loginForm(@Valid @ModelAttribute LoginDTO dto) {
         return ResponseEntity.ok(authService.login(dto));
     }
 
